@@ -1,0 +1,66 @@
+{
+  "kind": "collectionType",
+  "collectionName": "platos",
+  "info": {
+    "singularName": "plato",
+    "pluralName": "platos",
+    "displayName": "plato",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string",
+      "required": true
+    },
+    "activo": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "descripcion": {
+      "type": "blocks"
+    },
+    "precio_racion": {
+      "type": "decimal",
+      "required": true
+    },
+    "media_racion_disponible": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "precio_media_racion": {
+      "type": "decimal"
+    },
+    "precio_racion_tachado": {
+      "type": "decimal"
+    },
+    "precio_media_racion_tachado": {
+      "type": "decimal"
+    },
+    "novedad": {
+      "type": "boolean",
+      "default": false
+    },
+    "imagenes": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    },
+    "alergenos": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::alergeno.alergeno",
+      "inversedBy": "platos"
+    }
+  }
+}

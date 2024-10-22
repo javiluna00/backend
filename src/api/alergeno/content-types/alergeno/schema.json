@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "alergenos",
+  "info": {
+    "singularName": "alergeno",
+    "pluralName": "alergenos",
+    "displayName": "alergeno"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string",
+      "required": true
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "imagen": {
+      "allowedTypes": [
+        "images",
+        "files"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "platos": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::plato.plato",
+      "mappedBy": "alergenos"
+    }
+  }
+}
