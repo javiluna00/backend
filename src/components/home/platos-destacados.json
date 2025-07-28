@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_home_platos_destacados",
+  "info": {
+    "displayName": "Platos destacados",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "platos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::plato.plato"
+    },
+    "descripcion": {
+      "type": "blocks"
+    }
+  }
+}

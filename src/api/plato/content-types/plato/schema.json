@@ -61,6 +61,12 @@
       "relation": "manyToMany",
       "target": "api::alergeno.alergeno",
       "inversedBy": "platos"
+    },
+    "categorias": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::categoria.categoria",
+      "mappedBy": "platos"
     }
   }
 }

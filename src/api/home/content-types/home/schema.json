@@ -21,6 +21,11 @@
       "type": "component",
       "repeatable": true,
       "component": "home.quienes-somos"
+    },
+    "section_platos_destacados": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.platos-destacados"
     }
   }
 }

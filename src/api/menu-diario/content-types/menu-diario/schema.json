@@ -1,0 +1,25 @@
+{
+  "kind": "singleType",
+  "collectionName": "menu_diarios",
+  "info": {
+    "singularName": "menu-diario",
+    "pluralName": "menu-diarios",
+    "displayName": "Menu Diario"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fondo": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

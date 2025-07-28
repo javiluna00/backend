@@ -18,6 +18,19 @@ export interface HomeQuienesSomos extends Struct.ComponentSchema {
   };
 }
 
+export interface HomePlatosDestacados extends Struct.ComponentSchema {
+  collectionName: 'components_home_platos_destacados';
+  info: {
+    displayName: 'Platos destacados';
+    description: '';
+  };
+  attributes: {
+    titulo: Schema.Attribute.String;
+    platos: Schema.Attribute.Relation<'oneToMany', 'api::plato.plato'>;
+    descripcion: Schema.Attribute.Blocks;
+  };
+}
+
 export interface HomeHero extends Struct.ComponentSchema {
   collectionName: 'components_home_heroes';
   info: {
@@ -36,11 +49,28 @@ export interface HomeHero extends Struct.ComponentSchema {
   };
 }
 
+export interface CartaCarta extends Struct.ComponentSchema {
+  collectionName: 'components_carta_cartas';
+  info: {
+    displayName: 'Carta';
+    description: '';
+  };
+  attributes: {
+    categorias: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::categoria.categoria'
+    >;
+    platos: Schema.Attribute.Relation<'oneToMany', 'api::plato.plato'>;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'home.quienes-somos': HomeQuienesSomos;
+      'home.platos-destacados': HomePlatosDestacados;
       'home.hero': HomeHero;
+      'carta.carta': CartaCarta;
     }
   }
 }

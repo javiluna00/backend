@@ -526,6 +526,61 @@ export interface ApiAlergenoAlergeno extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCartaCarta extends Struct.SingleTypeSchema {
+  collectionName: 'cartas';
+  info: {
+    singularName: 'carta';
+    pluralName: 'cartas';
+    displayName: 'Carta';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    carta: Schema.Attribute.Component<'carta.carta', false>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::carta.carta'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiCategoriaCategoria extends Struct.CollectionTypeSchema {
+  collectionName: 'categorias';
+  info: {
+    singularName: 'categoria';
+    pluralName: 'categorias';
+    displayName: 'Categoria';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    slug: Schema.Attribute.UID;
+    titulo: Schema.Attribute.String;
+    platos: Schema.Attribute.Relation<'manyToMany', 'api::plato.plato'>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::categoria.categoria'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiHomeHome extends Struct.SingleTypeSchema {
   collectionName: 'homes';
   info: {
@@ -540,6 +595,10 @@ export interface ApiHomeHome extends Struct.SingleTypeSchema {
   attributes: {
     hero: Schema.Attribute.Component<'home.hero', true>;
     quienes_somos: Schema.Attribute.Component<'home.quienes-somos', true>;
+    section_platos_destacados: Schema.Attribute.Component<
+      'home.platos-destacados',
+      false
+    >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -549,6 +608,62 @@ export interface ApiHomeHome extends Struct.SingleTypeSchema {
       Schema.Attribute.Private;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::home.home'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiMenuDiarioMenuDiario extends Struct.SingleTypeSchema {
+  collectionName: 'menu_diarios';
+  info: {
+    singularName: 'menu-diario';
+    pluralName: 'menu-diarios';
+    displayName: 'Menu Diario';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    fondo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::menu-diario.menu-diario'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPequePeque extends Struct.SingleTypeSchema {
+  collectionName: 'peques';
+  info: {
+    singularName: 'peque';
+    pluralName: 'peques';
+    displayName: 'peque';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    titulo: Schema.Attribute.String;
+    descripcion: Schema.Attribute.Text;
+    platos: Schema.Attribute.Relation<'oneToMany', 'api::plato.plato'>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::peque.peque'> &
       Schema.Attribute.Private;
   };
 }
@@ -582,6 +697,10 @@ export interface ApiPlatoPlato extends Struct.CollectionTypeSchema {
     alergenos: Schema.Attribute.Relation<
       'manyToMany',
       'api::alergeno.alergeno'
+    >;
+    categorias: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::categoria.categoria'
     >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
@@ -979,7 +1098,11 @@ declare module '@strapi/strapi' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::alergeno.alergeno': ApiAlergenoAlergeno;
+      'api::carta.carta': ApiCartaCarta;
+      'api::categoria.categoria': ApiCategoriaCategoria;
       'api::home.home': ApiHomeHome;
+      'api::menu-diario.menu-diario': ApiMenuDiarioMenuDiario;
+      'api::peque.peque': ApiPequePeque;
       'api::plato.plato': ApiPlatoPlato;
       'admin::permission': AdminPermission;
       'admin::user': AdminUser;

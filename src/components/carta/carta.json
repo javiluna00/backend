@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_carta_cartas",
+  "info": {
+    "displayName": "Carta",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "categorias": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::categoria.categoria"
+    },
+    "platos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::plato.plato"
+    }
+  }
+}
