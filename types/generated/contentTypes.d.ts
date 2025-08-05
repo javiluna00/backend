@@ -564,7 +564,6 @@ export interface ApiCategoriaCategoria extends Struct.CollectionTypeSchema {
   attributes: {
     slug: Schema.Attribute.UID;
     titulo: Schema.Attribute.String;
-    platos: Schema.Attribute.Relation<'manyToMany', 'api::plato.plato'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -640,6 +639,39 @@ export interface ApiMenuDiarioMenuDiario extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiNoticiaNoticia extends Struct.SingleTypeSchema {
+  collectionName: 'noticias';
+  info: {
+    singularName: 'noticia';
+    pluralName: 'noticias';
+    displayName: 'noticia';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    texto: Schema.Attribute.Text;
+    desde: Schema.Attribute.Date;
+    hasta: Schema.Attribute.Date;
+    activo: Schema.Attribute.Boolean;
+    descripcion: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::noticia.noticia'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiPequePeque extends Struct.SingleTypeSchema {
   collectionName: 'peques';
   info: {
@@ -684,24 +716,13 @@ export interface ApiPlatoPlato extends Struct.CollectionTypeSchema {
     activo: Schema.Attribute.Boolean &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<true>;
-    descripcion: Schema.Attribute.Blocks;
-    precio_racion: Schema.Attribute.Decimal & Schema.Attribute.Required;
-    media_racion_disponible: Schema.Attribute.Boolean &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<true>;
-    precio_media_racion: Schema.Attribute.Decimal;
-    precio_racion_tachado: Schema.Attribute.Decimal;
-    precio_media_racion_tachado: Schema.Attribute.Decimal;
     novedad: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     imagenes: Schema.Attribute.Media<'images' | 'files' | 'videos', true>;
     alergenos: Schema.Attribute.Relation<
       'manyToMany',
       'api::alergeno.alergeno'
     >;
-    categorias: Schema.Attribute.Relation<
-      'manyToMany',
-      'api::categoria.categoria'
-    >;
+    plato_estrella: Schema.Attribute.Boolean;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -711,6 +732,35 @@ export interface ApiPlatoPlato extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::plato.plato'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPlatosDestacadoPlatosDestacado
+  extends Struct.SingleTypeSchema {
+  collectionName: 'platos_destacados';
+  info: {
+    singularName: 'platos-destacado';
+    pluralName: 'platos-destacados';
+    displayName: 'Platos destacado';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    platos: Schema.Attribute.Relation<'oneToMany', 'api::plato.plato'>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::platos-destacado.platos-destacado'
+    > &
       Schema.Attribute.Private;
   };
 }
@@ -1102,8 +1152,10 @@ declare module '@strapi/strapi' {
       'api::categoria.categoria': ApiCategoriaCategoria;
       'api::home.home': ApiHomeHome;
       'api::menu-diario.menu-diario': ApiMenuDiarioMenuDiario;
+      'api::noticia.noticia': ApiNoticiaNoticia;
       'api::peque.peque': ApiPequePeque;
       'api::plato.plato': ApiPlatoPlato;
+      'api::platos-destacado.platos-destacado': ApiPlatosDestacadoPlatosDestacado;
       'admin::permission': AdminPermission;
       'admin::user': AdminUser;
       'admin::role': AdminRole;

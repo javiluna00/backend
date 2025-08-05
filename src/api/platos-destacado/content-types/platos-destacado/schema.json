@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "platos_destacados",
+  "info": {
+    "singularName": "platos-destacado",
+    "pluralName": "platos-destacados",
+    "displayName": "Platos destacado"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "platos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::plato.plato"
+    }
+  }
+}

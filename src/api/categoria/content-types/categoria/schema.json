@@ -16,12 +16,6 @@
     },
     "titulo": {
       "type": "string"
-    },
-    "platos": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::plato.plato",
-      "inversedBy": "categorias"
     }
   }
 }

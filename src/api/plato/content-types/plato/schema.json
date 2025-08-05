@@ -21,27 +21,6 @@
       "default": true,
       "required": true
     },
-    "descripcion": {
-      "type": "blocks"
-    },
-    "precio_racion": {
-      "type": "decimal",
-      "required": true
-    },
-    "media_racion_disponible": {
-      "type": "boolean",
-      "default": true,
-      "required": true
-    },
-    "precio_media_racion": {
-      "type": "decimal"
-    },
-    "precio_racion_tachado": {
-      "type": "decimal"
-    },
-    "precio_media_racion_tachado": {
-      "type": "decimal"
-    },
     "novedad": {
       "type": "boolean",
       "default": false
@@ -62,11 +41,8 @@
       "target": "api::alergeno.alergeno",
       "inversedBy": "platos"
     },
-    "categorias": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::categoria.categoria",
-      "mappedBy": "platos"
+    "plato_estrella": {
+      "type": "boolean"
     }
   }
 }
